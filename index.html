@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Scheduling DApp</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #0d3106;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo-placeholder {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center; 
+            justify-content: flex-start; 
+            padding-left: 20px; 
+            background: white;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .content {
+            width: 50%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .schedule-container {
+            width: 30%;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            margin-left: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        select, button {
+            margin: 10px;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 10px;
+            background-color: #ffffff;
+            color: #0d3106;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo Section -->
+    <div class="logo-placeholder">
+        <img src="images/New-Logo-800x204.png" alt="PAC University Logo" class="logo">
+    </div>
+
+    <div class="container">
+        <!-- Main Content -->
+        <div class="content">
+            <h2>Class Scheduling DApp</h2>
+            <p>Please Select your preferred class timing:</p>
+            
+            <select id="classSelect">
+                <option value="BSIT 406|Event Driven Programming">Event Driven Programming (BSIT 406)</option>
+                <option value="BSIT 407|Human Computer Interactions">Human Computer Interactions (BSIT 407)</option>
+                <option value="BSIT 408|Introduction to Artificial Intelligence">Introduction to Artificial Intelligence (BSIT 408)</option>
+                <option value="BSIT 409|Network Design and Administration">Network Design and Administration (BSIT 409)</option>
+                <option value="BSIT 410|Object-oriented Programming I">Object-oriented Programming I (BSIT 410)</option>
+                <option value="BSIT 411|Management Information Systems">Management Information Systems (BSIT 411)</option>
+                <option value="BSIT 412|Advanced Web Application Development">Advanced Web Application Development (BSIT 412)</option>
+                <option value="BSIT 413|Knowledge Based Systems">Knowledge Based Systems (BSIT 413)</option>
+                <option value="BSIT 414|Research Methods">Research Methods (BSIT 414)</option>
+                <option value="BSIT 415|I.T Project Management">I.T Project Management (BSIT 415)</option>
+                <option value="BSIT 416|Information Systems Security and Audit">Information Systems Security and Audit (BSIT 416)</option>
+                <option value="BSIT 417|Business Intelligence and Analytics">Business Intelligence and Analytics (BSIT 417)</option>
+                <option value="BSIT 418|Blockchain Technology">Blockchain Technology (BSIT 418)</option>
+                <option value="BSIT 419|BSIT IT Project II">BSIT IT Project II (BSIT 419)</option>
+                <option value="BSIT 420|Corporate Internship">Corporate Internship (BSIT 420)</option>
+            </select>
+
+            <select id="timeSelect">
+                <option value="8:00 AM">8:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="6:00 PM">6:00 PM</option>
+            </select>
+
+            <button onclick="selectClass()">Select Class</button>
+            <p id="status"></p>
+        </div>
+
+        <!-- Schedule Display -->
+        <div class="schedule-container">
+            <h2>Your Schedule</h2>
+            <ul id="scheduleList">
+                <!-- Selected classes will appear here -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Dominic Maungu. All Rights Reserved.
+    </div>
+
+    <script>
+        let schedule = [];
+
+        function selectClass() {
+            let selectedOption = document.getElementById("classSelect").value;
+            let [classCode, className] = selectedOption.split("|");
+            let selectedTime = document.getElementById("timeSelect").value;
+
+            // Check if the selected time slot is already taken
+            if (!schedule.some(entry => entry.time === selectedTime)) {
+                schedule.push({ classCode, className, time: selectedTime });
+                updateScheduleDisplay();
+            } else {
+                alert("Time slot already taken! Please choose a different time.");
+            }
+        }
+
+        function updateScheduleDisplay() {
+            let scheduleList = document.getElementById("scheduleList");
+            scheduleList.innerHTML = "";
+
+            schedule.forEach(entry => {
+                let listItem = document.createElement("li");
+                listItem.textContent = `${entry.className} (${entry.classCode}) - ${entry.time}`;
+                scheduleList.appendChild(listItem);
+            });
+        }
+    </script>
+
+</body>
+</html>
